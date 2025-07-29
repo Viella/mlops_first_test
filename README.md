@@ -199,3 +199,14 @@ uv run src/inference.py \
 ---
 
 **🎓 学習目的**: MLOpsの基礎概念を実践的に理解する最小構成プロジェクト
+
+
+参考:
+
+```mermaid
+graph TD
+    A["Phase 0: 砂場 (ローカル)<br/>Jupyterで自由に実験"] -->|"有望なアイデア発見"| B["Phase 1: プロトタイプ (ローカル)<br/>このプロジェクトの構造に落とし込む<br/>(src/train.pyなどを編集)"]
+    B -->|"ローカルで動作確認OK"| C["Phase 2: CI/CDパイプライン<br/>GitにPushして自動テスト"]
+    C -->|"結果をフィードバック"| A
+    C -->|"品質OK！"| D["Phase 3: 本番運用<br/>(APIデプロイなど)"]
+```
