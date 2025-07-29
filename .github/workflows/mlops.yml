@@ -39,7 +39,7 @@ jobs:
         python src/train.py --data data/hiring_data.csv --model_output models/hiring_model.pkl
         
     - name: Upload model artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: trained-model
         path: |
@@ -49,7 +49,7 @@ jobs:
         
     - name: Upload training logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: training-logs
         path: |
@@ -76,7 +76,7 @@ jobs:
         pip install -e .
         
     - name: Download model artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: trained-model
         path: .
@@ -93,7 +93,7 @@ jobs:
           --output predictions.json
           
     - name: Upload prediction results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: predictions
         path: predictions.json
@@ -144,7 +144,7 @@ jobs:
         pip install -e .
         
     - name: Download model artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: trained-model
         path: .
