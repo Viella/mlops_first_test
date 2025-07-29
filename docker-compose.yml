@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # 学習用サービス
+  training:
+    build:
+      context: .
+      dockerfile: docker/training.Dockerfile
+    container_name: mlops-training
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./src:/app/src
+    environment:
+      - PYTHONPATH=/app
+    command: |
+      sh -c "
+        echo '=== データ生成開始 ===' &&
+        python src/data_generation.py --samples 1000 &&
+        echo '=== 学習開始 ===' &&
+        python src/train.py
+      "
+    
+  # 推論用サービス  
+  inference:
+    build:
+      context: .
+      dockerfile: docker/inference.Dockerfile
+    container_name: mlops-inference
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - training
+    # サンプル推論の実行
+    command: |
+      sh -c "
+        echo '=== 推論サービス起動 ===' &&
+        echo '単一予測のサンプル:' &&
+        python src/inference.py --mode single --age 30 --experience 5 --skill 8 --interview 7 --education 4 &&
+        echo '' &&
+        echo 'バッチ予測の準備が完了しました。' &&
+        echo '使用方法: docker-compose exec inference python src/inference.py --mode batch --input /app/data/hiring_data.csv'
+      "
+
+networks:
+  default:
+    name: mlops-network 

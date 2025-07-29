@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.71,
+  "feature_importance": {
+    "age": 0.25081572764158905,
+    "experience_years": 0.22375509257140835,
+    "skill_score": 0.22736127846796658,
+    "interview_score": 0.19128188117112566,
+    "education_level": 0.10678602014791042
+  }
+}
