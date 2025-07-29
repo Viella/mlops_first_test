@@ -32,20 +32,21 @@ MLOps_Exp/
 ### 1. ローカル実行
 
 ```bash
+uv sync
 # 依存関係のインストール
-pip install -e .
+uv pip install -e .
 
 # データ生成
-python src/data_generation.py --samples 1000
+uv run src/data_generation.py --samples 1000
 
 # モデル学習
-python src/train.py
+uv run src/train.py
 
 # 推論（単一）
-python src/inference.py --mode single --age 30 --experience 5 --skill 8 --interview 7 --education 4
+uv run src/inference.py --mode single --age 30 --experience 5 --skill 8 --interview 7 --education 4
 
 # 推論（バッチ）
-python src/inference.py --mode batch --input data/hiring_data.csv --output predictions.json
+uv run src/inference.py --mode batch --input data/hiring_data.csv --output predictions.json
 ```
 
 ### 2. Docker実行
@@ -80,7 +81,7 @@ docker-compose exec inference python src/inference.py --mode single --age 25 --e
 
 ### データ生成（`data_generation.py`）
 ```bash
-python src/data_generation.py \
+uv run src/data_generation.py \
   --samples 1000 \
   --output data/hiring_data.csv \
   --seed 42
@@ -88,7 +89,7 @@ python src/data_generation.py \
 
 ### モデル学習（`train.py`）
 ```bash
-python src/train.py \
+uv run src/train.py \
   --data data/hiring_data.csv \
   --model_output models/hiring_model.pkl \
   --test_size 0.2 \
@@ -98,7 +99,7 @@ python src/train.py \
 ### 推論（`inference.py`）
 ```bash
 # 単一予測
-python src/inference.py \
+uv run src/inference.py \
   --mode single \
   --age 30 \
   --experience 5 \
@@ -107,7 +108,7 @@ python src/inference.py \
   --education 4
 
 # バッチ予測
-python src/inference.py \
+uv run src/inference.py \
   --mode batch \
   --input data/hiring_data.csv \
   --output predictions.json
